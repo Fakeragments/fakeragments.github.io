@@ -26,8 +26,9 @@ import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-cop
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://fakeragments.github.io',
-	base: "/",
+	//site: 'https://fakeragments.github.io',
+	site: 'https://ltreedo.icu',
+	//base: "/",
 	trailingSlash: "always",
 	integrations: [
 		tailwind({
