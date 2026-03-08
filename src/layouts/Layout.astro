@@ -4,6 +4,8 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import ConfigCarrier from "@components/ConfigCarrier.astro";
+import { Image } from "astro:assets";
+// import backgroundImage from "../assets/images/2.jpg";
 import { profileConfig, siteConfig } from "@/config";
 import {
 	AUTO_MODE,
@@ -151,6 +153,15 @@ const bannerOffset =
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
 		  data-overlayscrollbars-initialize
 	>
+		<div class="fixed inset-0 z-0 w-full h-full overflow-hidden pointer-events-none">
+			<!-- <Image
+			src={backgroundImage}
+			alt="Background"
+			class="w-full h-full object-cover"
+			loading="eager"
+			/> -->
+			<!-- <div class="absolute inset-0 bg-black/50 dark:bg-black/50"></div> -->
+		</div>
 		<ConfigCarrier></ConfigCarrier>
 		<slot />
 
