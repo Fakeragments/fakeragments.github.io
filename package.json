@@ -58,8 +58,7 @@
     "stylus": "^0.64.0",
     "svelte": "^5.39.8",
     "tailwindcss": "^3.4.19",
-    "typescript": "^5.9.3",
-    "unist-util-visit": "^5.0.0"
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.10.6",
@@ -70,7 +69,8 @@
     "@types/mdast": "^4.0.4",
     "@types/sanitize-html": "^2.16.0",
     "postcss-import": "^16.1.1",
-    "postcss-nesting": "^13.0.2"
+    "postcss-nesting": "^13.0.2",
+    "unist-util-visit": "^5.0.0"
   },
   "packageManager": "pnpm@9.14.4"
 }

@@ -137,9 +137,6 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
-      unist-util-visit:
-        specifier: ^5.0.0
-        version: 5.0.0
     devDependencies:
       '@astrojs/ts-plugin':
         specifier: ^1.10.6
@@ -168,6 +165,9 @@ importers:
       postcss-nesting:
         specifier: ^13.0.2
         version: 13.0.2(postcss@8.5.6)
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
 
 packages:
 

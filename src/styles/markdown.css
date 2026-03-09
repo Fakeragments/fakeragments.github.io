@@ -118,4 +118,21 @@
         margin: 1em 0;
     }
     
+    figure {
+        display: grid;
+        justify-items: center;
+        margin: 1rem 0;
+    }
+    
+    figure img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    p img {
+        display: block;
+        margin: 1rem auto;
+        max-width: 100%;
+        height: auto;
+    }
 }
