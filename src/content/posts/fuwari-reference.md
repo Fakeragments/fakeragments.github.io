@@ -133,6 +133,8 @@ _斜体文本_
 **基本代码块：**
 ```markdown
 ```
+
+```
 define foobar() {
     print "Hello!";
 }
