@@ -45,7 +45,7 @@ draft: false
 APIkey的我这里使用的是月之暗面的（感觉聪明点），虽然说大部分服务商都会送一点TOKEN，但实际用起来是完全不够的。KEY复制了直接填就行。
 ![1.2](./images/api2.png)
 傻瓜式部署就走完了，保险起见，可以进主机CMD用`openclaw gateway restart`重启下网关服务。
-- `openclaw dashboard ` 可以使用该命令在本地起一个GUI进行对话。<br>
+- `openclaw dashboard ` 可以使用该命令起一个WEB进行对话。<br>
 > openclaw的Gateway作用如图所示，网关是会话、路由和渠道连接的唯一来源。[OpenclawDoc](https://docs.openclaw.ai/zh-CN)
 ![1.2](./images/1.2.2.png)
 
