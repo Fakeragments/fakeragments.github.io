@@ -1,5 +1,5 @@
 ---
-title: Docker&Pod基础
+title: Docker&Pod基础1
 published: 2025-08-08
 description: Docker&Pod学习记录
 tags: [Docker, Pod, 云计算]
@@ -86,7 +86,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":3000", nil)
 }
 ```
 这时没有Go语言环境，因此无法直接运行，但是通过` Container (容器)` 技术，只需要上面的代码，附带着`对应的容器 Dockerfile 文件`，那么你就不需要 golang 的任何知识，也能将代码顺利运行起来。
@@ -125,7 +125,7 @@ docker run -d -p 8080:3000 --name hellok8s Fakeragments/helloks8:v1
 # 如果提示容器被占用 删除重运行即可
 docker rm -f hellok8s
 ```
-> build完之后就是将这段go代码打包成**docker镜像**了。
+> build完之后就是将这段go代码打包成**docker container**了。
 
 
 ![build&run.png](./buildrun.png)
@@ -203,22 +203,26 @@ spec:
       image: nginx           # 使用的镜像（官方Nginx）
 ```
 
+> Pod的资源类型可以理解为K8S中的最小元素
 
-2. 应用YAML创建，此时已经环境已经备好了（docker、kubectl、minikube），需要保证minikube为运行状态。以下命令windows和linux通用。
+
+2. 应用YAML创建，此时已经环境已经备好了（docker、kubectl、minikube），需要保证minikube为运行状态。以下命令windows和linux通用。`这里minikube抓取的镜像是作为minikube运行的底层系统镜像`。
+
 ```bash
 # 启动minikube
-minikube start --image-mirror-country=cn
+minikube start --image-mirror-country=cn  
+# 手动加载本地镜像
+minikube image load registry.cn-hangzhou.aliyuncs.com/google_containers/kicbase:v0.0.50
 # 检查minikube状态
 minikube status
 # 如果提示 ‘Exiting due to DRV_AS_ROOT: The "docker" driver should not be used with root privileges.’
 minikube start --force
-
 # 应用YAML创建Pod
 kubectl apply -f nginx.yaml
 ```
 
 
-3. Nginx Pod操作，这里云主机的性能跑不了，所以用抄下命令行 :(
+3. Nginx Pod操作
 ```bash
 kubectl get pods
 # nginx-pod         1/1     Running   0           6s
