@@ -84,7 +84,7 @@ M3UA & SIGTRAN配置:
 
 
 ## 4.1 SCCP作用和相关术语
-1. **扩展寻址能力**：MTP3 只能用 ** 点码（OPC/DPC）** 寻址，SCCP 增加了 `全局码`（Global Title, GT） 和 `子系统号`（Subsystem Number, SSN）。
+1. **扩展寻址能力**：MTP3 只能用 **点码（OPC/DPC）** 寻址，SCCP 增加了 `全局码`（Global Title, GT） 和 `子系统号`（Subsystem Number, SSN）。
 
 
 :::tip
@@ -97,7 +97,7 @@ M3UA & SIGTRAN配置:
 - 面向连接业务（Class 2/3）：类似 TCP，用于需要建立可靠连接的长交互（较少使用）。
 
 3. **全局码翻译（GT Translation GTT）**
-`这个比较重要，SCCP 可以将**手机号、IMSI 等用户标识（GT）翻译成对应的信令点码（DPC）和子系统号（SSN）**，从而实现跨网、跨地域的路由`。这是实现移动用户在全国 / 全球漫游的关键技术之一。
+`这个比较重要，SCCP 可以将手机号、IMSI 等用户标识（GT）翻译成对应的信令点码（DPC）和子系统号（SSN） ，从而实现跨网、跨地域的路由`。这是实现移动用户在全国 / 全球漫游的关键技术之一。
 
 4. 分段与重组：当上层消息（如 TCAP/MAP）超过 MTP3 的最大传输单元时，SCCP 负责将消息分段发送，并在对端重组。
 
