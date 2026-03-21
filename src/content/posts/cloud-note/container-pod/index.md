@@ -1,5 +1,5 @@
 ---
-title: Docker&Pod基础1
+title: Docker&Pod基础
 published: 2025-08-08
 description: Docker&Pod学习记录
 tags: [Docker, Pod, 云计算]
