@@ -93,6 +93,8 @@ EPC业务可大致分为：
 附着流程是最重要的流程之一，逐步说太多了，简化下比较好理解。<br>
 附着流程简化图如下，红色内容为流程中比较重要的字段：
 ![附着](附着.png)
+
+-----
 这张图不涉及到新旧MME的切换流程和旧session的释放流程，简单来说就是这几步：
 1. **ue**向**enb**发起附着请求，enb透传该消息到MME
 2. **MME**向**HSS**发起鉴权请求，然后将HSS返回的鉴权信息发到UE
@@ -133,3 +135,50 @@ EPS承载由三部分组成，包括 `无线承载` `S1承载` 和 `S5/S8承载`
 3. 更新位置阶段
 4. 网元和拓扑选择
 5. 会话和承载建立阶段
+
+
+### 2.4.1 初始请求阶段
+这里不考虑UE发送RRC连接请求的随机接入。
+
+-----
+1. **S1接口信令链接**，UE始发的消息如下：
+![initial-ue-message](initial-ue-message.png)
+**包含5个items**：
+- Id-eNB-UE-S1AP-ID：`建立 S1 接口信令连接内容`。
+- Id-NAS-PDU：`非接入层业务信息（UE 和 MME 交互的消息）`。
+- Id-TAI：用户当前所在的跟踪区。
+- Id-EUTRAN-CGI：用户当前的小区。
+- Id-RRC-Establishment-Cause：**RRC 建立的原因**，如 mo-Signalling、mo-Data、mt-Access、highPriorityAccess、emergency 等。表明终端 RRC 建立是由初始信令、初始数据，还是其他原因触发。
+![NAS-UENB](NAS-UENB.png)
+> 这里携带enb为ue分配的S1接口信令ID，在同一enb内唯一；
+> NAS-PDU中包含UE和MME交互的消息；
+
+![downlink-1](downlink-1.png)
+> 随后的第一条下行消息会携带 **MME和UE的S1信令链接ID**，NAS-PDU中包含认证信息
+:::tip
+NAS层是在SCTP之上的，所以不需要协商地址和端口信息
+:::
+
+-----
+2. **UE身份获取**
+首先明确两个概念：<br>
+- **IMSI**(International Mobile Subscriber Identity)：国际移动用户识别码，用于唯一标识用户，通常在首次附着时携带，网络中尽量少使用。
+- **GUTI**(Global Unique Tracking Identifier)：MME分配，全局唯一跟踪标识符，用于在不同小区之间跟踪用户位置
+
+**UE上报的标识类型：**
+- IMSI
+- 上一次使用的native GUTI
+- 由2/3G映射而来的GUTI
+
+`倘若上报的GUTI并非本MME分配，则需要通过MME之间的交互来从old mme获取GUTI`，简单流程如下：
+- mme之间通过ip/gtp通信，这时候就需要根据GUTI里的内容构建old mme域名，GUTI到MME FQDN的映射如下：
+![GUTI-FQDN](GUTI-FQDN.png)
+- 之后MME通过dns的NAPTR类型（基于正则表达式的 DNS 查询）查询后的结果，使用A类型请求交互后获得old mme的S10地址
+- 想odl mme发起identification request获取用户信息
+- 若失败则直接向UE发送identification request
+![mme查询失败](mme查询失败.png)
+
+尽量少使用空口以提高安全性。
+
+
+### 2.4.2 鉴权和安全流程
