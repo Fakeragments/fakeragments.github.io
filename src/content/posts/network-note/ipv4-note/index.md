@@ -1,8 +1,8 @@
 ---
 title: IPv4基础
 published: 2024-02-11
-description: IPv4基础
-tags: [计算机网络, IPv4, TCP/IP, 子网划分, NAT]
+description: IPv4基础回顾
+tags: [计算机网络, IPv4, TCP/IP]
 category: 技术笔记
 draft: false
 ---

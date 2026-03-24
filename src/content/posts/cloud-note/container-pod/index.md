@@ -2,7 +2,7 @@
 title: Docker&Pod基础
 published: 2025-08-08
 description: Docker&Pod学习记录
-tags: [Docker, Pod, 云计算]
+tags: [Docker, 云计算]
 category: 技术笔记
 draft: false
 ---
