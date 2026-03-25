@@ -54,6 +54,7 @@ vowifi接入流程图如下：
 ![s6b](s6b.png)
 
 > 补充一下SMF/xGW到PCF拿volte策略的流程，http2忘过滤了-=
+
 ![pcf](pcf.png)
 
 > 顺便看看ims承载建立后的sip注册，可以看到接入方式是WLAN
@@ -62,10 +63,27 @@ vowifi接入流程图如下：
 
 ----
 
-# VoWifi和VoNR平滑切换流程分析
+# VoWifi 与 VoNR 之间平滑切换流程分析
+
+**环境是45G融合核心网，`手机得支持vowifi切vonr`**
+
+1. **VoWifi 到 VoLTE** 的流程如图所示，和普通注册流程类似，只不过多了IPCAN的会话更新和epdg承载的删除。
+![vowifi-volte](vowifi-volte.png)
+
+这里以VoWiFi到VoNR切换为例说下承载建立流程，如图所示，可以看到存在语音通话的rtp流，`在wifi信号弱的区域手机向核心网发起ims pdn会话建立`，这里用的45G融合核心网，原理都一样。发起核心网会话（session） -> ims承载建立完成 -> 删除epdg承载。
+![vowifi-ims-switch1](vowifi-ims-switch1.png)
+
+:::important[踩坑记录]
+支持vowifi切vonr的手机，在vowifi承载建立的create session中，APCO字段会携带5G PDU的ID，用于后续VoNR切换。
+![apco](apco.png)
+:::
+
+2. **VoLTE 到 VoWifi** 的流程如图所示，流程也差不多，只不过VoLTE的承载是在VoWifi session建立时就开始拆除了。
+![volte-vowifi](volte-vowifi.png)
 
 
 ----
+
 
 # 交付处理思路
 - 要部署的是一套演示环境，比较简单，因此直接采用单台服务器起KVM拉三台虚拟机，45GC+EPDG+IMS，不使用DPDK
