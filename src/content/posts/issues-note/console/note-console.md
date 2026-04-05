@@ -2,8 +2,8 @@
 title: Console线接入服务器时，终端无输出
 published: 2026-03-08
 description: 解决服务器console无输出问题
-tags: [系统, 服务器]
-category: 技术笔记
+tags: [服务器, Linux]
+category: 案例
 draft: false
 ---
 
