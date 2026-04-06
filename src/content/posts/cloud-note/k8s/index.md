@@ -9,9 +9,11 @@ draft: false
 
 
 # 环境说明
+部署一套 `单Master + 单Worker` 集群。
+
 开始想的是用minikube，但是局限性有太多，网上的教程有点乱，还是想着自己折腾一下。
 
-正好有个核心网+K8S的项目是采用多节点方式部署，这里就使用**kubeadm**方式来部署了，为了熟悉命令，不使用dashboard。
+正好有个核心网+K8S的项目是采用多节点方式部署，这里就使用**kubeadm**方式来部署了，采用为了熟悉命令，不使用dashboard。
 
 所有节点虚拟机参数如下：
 - 系统：ubuntu-24.04.4-live-server-amd64；
@@ -67,7 +69,7 @@ apt-get install -y kubelet kubeadm kubectl
 :::
 
 ```bash
-sed -i 's|sandbox_image = .*|sandbox_image = "registry.aliyuncs.com/google_containers/pause:3.9"|' /etc/containerd/config.toml<br>
+sed -i 's|sandbox_image = .*|sandbox_image = "registry.aliyuncs.com/google_containers/pause:3.9"|' /etc/containerd/config.toml
 systemctl restart containerd
 
 kubeadm init \
@@ -114,3 +116,42 @@ kubectl get pods -n kube-system  &&  kubectl get nodes
 **到这里 Master 节点已经部署完成了，现在处理工作（Worker）节点。**
 
 # Master单节点部署
+首先在master1节点上**生成worker加入的密钥**：
+```bash
+kubeadm token create --print-join-command
+# kubeadm join 192.168.24.130:6443 --token 199087.5d6po9e0znrwbwkr --discovery-token-ca-cert-hash sha256:90f8f15114f42eebc9625b34a70383b4fb80eb979495aaba22300ebdd95c6c2a
+```
+
+**worker节点**使用之前`部署好containerd和K8s组件`的快照，链接克隆就行，修改主机名为`k8s-worker1`：
+```bash
+# worker1
+hostnamectl set-hostname k8s-worker1
+# /etc/hosts同步修改
+
+# 重置一下
+kubeadm reset -f
+rm -rf $HOME/.kube
+rm -rf /var/lib/kubelet
+rm -rf /etc/kubernetes
+
+# 贴上生成的密钥
+kubeadm join 192.168.24.130:6443 --token 199087.5d6po9e0znrwbwkr --discovery-token-ca-cert-hash sha256:90f8f15114f42eebc9625b34a70383b4fb80eb979495aaba22300ebdd95c6c2a
+# This node has joined the cluster:
+# ...
+```
+:::tip
+containerd配置文件和master1相同，不然纳管的时候抓取calico和proxy镜像时可能一直处于init状态
+:::
+
+出现以上字段就说明加入没问题，这时候**回到master1上查看节点状态**：
+```bash
+kubectl get pods -n kube-system -o wide  | grep -i worker1
+# NAME                                       READY   STATUS    RESTARTS      AGE   IP                NODE          NOMINATED NODE   READINESS GATES
+# calico-node-5ddj4                          1/1     Running   0             12m   192.168.24.131    k8s-worker1   <none>           <none>
+# kube-proxy-5qh7f                           1/1     Running   0             12m   192.168.24.131    k8s-worker1   <none>           <none>
+kubectl get nodes
+# NAME          STATUS   ROLES           AGE   VERSION
+# k8s-master1   Ready    control-plane   17h   v1.28.15
+# k8s-worker1   Ready    <none>          11m   v1.28.15
+```
+worker1的`calico和proxy网络组件处于running`，且worker1 `node状态为ready`，代表worker1已经加入到集群了。
