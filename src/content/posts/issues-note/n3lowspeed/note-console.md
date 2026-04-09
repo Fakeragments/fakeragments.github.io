@@ -41,10 +41,7 @@ cat  /sys/class/net/ens192/queues/rx-0/rps_cpus
 ```
 
 输出的0不关联任何rx队列，收包不做任何cpu分发，导致软中断和UPF业务来回切换，进而导致发包速率下降。
-```bash
-cat  /sys/class/net/ens192/queues/rx-0/rps_cpus
-# 0
-```
+
 
 调整收包队列，让所有CPU参与收包。
 ```bash
