@@ -43,10 +43,7 @@ ethtool -k ens192
 > 可以看到gro自动合包、tx网卡拆包已关闭；<br>
 > 这里看到 `generic-segmentation-offload: on` 和 `large-receive-offload: on`；
 ```bash
-ethtool -K ens192 gro off # 通用分段卸载 关闭网卡拆包（内核把大包交给网卡，让网卡
-
-
-拆成符合 MTU 的小包发出去）
+ethtool -K ens192 gro off # 通用分段卸载 关闭网卡拆包（内核把大包交给网卡，让网卡拆成符合 MTU 的小包发出去）
 ethtool -K ens192 lro off # 大接收卸载 关闭网卡合包（网卡把收到的多个小包合并成一个大包，再交给内核）
 ```
 

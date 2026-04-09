@@ -80,7 +80,7 @@ kubeadm init \
   --image-repository registry.aliyuncs.com/google_containers \
   --kubernetes-version v1.28.4 \
   --service-cidr=10.96.0.0/12 \
-  --pod-network-cidr=192.168.0.0/16
+  --pod-network-cidr=172.30.0.0/16
 ```
 
 这时候通过`kubectl get nodes`看主节点是连接失败的，需要配置其他组件：
@@ -98,7 +98,7 @@ kubectl get nodes
 #NAME          STATUS     ROLES           AGE   VERSION
 #k8s-master1   NotReady   control-plane   17m   v1.28.15
 
-# 网络插件，可以理解为k8s集群中负责通信的网络设备
+# 网络插件，可以理解为k8s集群中负责通信的网络设备，这里装calico
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.31.4/manifests/calico.yaml
 
 # 查看整体
@@ -157,6 +157,7 @@ kubectl get nodes
 # k8s-master1   Ready    control-plane   17h   v1.28.15
 # k8s-worker1   Ready    <none>          11m   v1.28.15
 ```
+
 worker1的`calico和proxy网络组件处于running`，且worker1 `node状态为ready`，代表worker1已经加入到集群了。
 
 # tips 一些其他踩坑记录：
