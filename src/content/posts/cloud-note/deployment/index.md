@@ -25,7 +25,7 @@ metadata:
   name: nginx-redis-deployment
 spec:
   replicas: 1
-  
+
   selector:
     matchLabels:
       app: nginx-redis
@@ -36,8 +36,17 @@ spec:
         app: nginx-redis
     spec:
       containers:
-        - image: nginx
-          name: nginx-redis-container
+        # 容器1：Nginx
+        - name: nginx
+          image: nginx
+          ports:
+            - containerPort: 80
+
+        # 容器2：Redis
+        - name: redis
+          image: redis:alpine
+          ports:
+            - containerPort: 6379
 ```
 
 - 类型 `kind` 为 `Deployment`，名称为 `nginx-redis-deployment`。
@@ -52,6 +61,15 @@ root@k8s-master1:~# kubectl apply -f deployment.yaml
 root@k8s-master1:~# kubectl get pods
 # NAME                                      READY   STATUS    RESTARTS   AGE
 # nginx-redis-deployment-6c69b4d46c-p886c   1/1     Running   0          2d10h
+
+# 查看使用的deployment文件
+root@k8s-master1:~# kubectl get deployment
+# NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+# nginx-redis-deployment   1/1     1            1           2d23h
+
+kubectl get deploy nginx-redis-deployment -o yaml
+
+
 ```
 
 这时候手动把这个pod给删除：

@@ -88,6 +88,8 @@ docker rm -f 容器ID
 
 
 ## 2.1 源码准备
+环境使用云主机上自带的docker。
+
 这里使用go语言来启动一个监听3000端口的HTTP服务，访问根路径时返回文本。
 ```go
 package main
