@@ -4,7 +4,7 @@ published: 2025-08-12
 description: K8S pod镜像版本升级学习记录
 tags: [云计算, K8S]
 category: 技术笔记
-draft: true
+draft: false
 ---
 
 # 概述
@@ -14,6 +14,11 @@ draft: true
 
 # 镜像v2版本升级
 将之前学习docker的代码重新构造下，改为v2版本，返回文本为`[v2] Hello, Kubernetes!`：
+
+
+::github{repo="guangzhengli/k8s-tutorials"}
+
+
 ```go
 package main
 import (
@@ -67,12 +72,17 @@ spec:
         - name: hellok8s
           image: fakeragments/hellok8s:v2
           ports:
-            - containerPort: 80
+            - containerPort: 3000
         # 容器2：Redis
         - name: redis
           image: redis:alpine
           ports:
             - containerPort: 6379
+```
+
+这里的 `containerPort` 需要改成 3000，因为前面构建的代码是开放的3000端口。
+```bash
+http.ListenAndServe(":3000", nil)
 ```
 
 直接再通过 `kubectl apply -f deployment.yaml` 部署：
@@ -88,9 +98,9 @@ root@k8s-master1:~# kubectl get pods
 ```bash
 #映射
 root@k8s-master1:~# kubectl port-forward pod/nginx-redis-deployment-846f98c677-85qq8 8080:3000 6379:6379 --address=0.0.0.0
-Forwarding from 0.0.0.0:8080 -> 3000
-Forwarding from 0.0.0.0:6379 -> 6379
-Handling connection for 8080
+# Forwarding from 0.0.0.0:8080 -> 3000
+# Forwarding from 0.0.0.0:6379 -> 6379
+# Handling connection for 8080
 
 root@k8s-master1:~# curl 192.168.24.130:8080
 # [v2] Hello, Kubernetes!
@@ -179,7 +189,7 @@ spec:
           image: fakeragments/hellok8s:v2
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 3000
 
         # 容器2：Redis
         - name: redis
