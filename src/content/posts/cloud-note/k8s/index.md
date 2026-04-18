@@ -231,3 +231,30 @@ crictl images
 ```
 
 这下才拉下来-=，有点恶心
+
+## 重启后master和worker kube-system 组件异常
+
+查看异常pod的状态，报resolv.conf缺失，直接装个：
+```bash
+root@k8s-master1:~# kubectl describe pod calico-node-lp6fk -n kube-system
+
+# Events:
+#   Type     Reason                  Age                     From             Message
+#   ----     ------                  ----                    ----             -------
+#   Warning  NodeNotReady            6m11s                   node-controller  Node is not ready
+#   Warning  FailedCreatePodSandBox  3m26s (x12 over 5m31s)  kubelet          Failed to create pod sandbox: open /run/systemd/resolve/resolv.conf: no such file or directory
+#   Normal   SandboxChanged          19s (x26 over 5m31s)    kubelet          Pod sandbox changed, it will be killed and re-created.
+
+root@k8s-master1:~# apt install -y systemd-resolved
+root@k8s-master1:~# systemctl enable --now systemd-resolved
+root@k8s-master1:~# systemctl restart kubelet
+
+```
+
+## kubectl日志报错重复POD
+具体报错信息如下，pod重复导致，直接删了重建：
+```bash 
+#Apr 18 03:19:02 k8s-master1 kubelet[16870]: E0418 03:19:02.441582   16870 kubelet.go:1898] "Failed creating a mirror pod for" err="pods \"kube-controller-manager-k8s-master1\" already exists" pod="kube-system/kube-controller-manager-k8s-master1"
+
+root@k8s-master1:~# crictl rm -f $(crictl pods -q --name kube-controller-manager-k8s-master1) 2>/dev/null
+```

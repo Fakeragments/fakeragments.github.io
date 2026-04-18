@@ -6,4 +6,20 @@
     .title {
         font-family: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
+    
+    /* 让代码不换行，支持水平滚动 */
+    pre {
+        overflow-x: auto !important;
+        white-space: pre !important;
+    }
+    
+    code {
+        white-space: pre !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+    }
+    
+    .ec-line {
+        white-space: pre !important;
+    }
 }
