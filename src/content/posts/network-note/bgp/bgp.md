@@ -4,7 +4,7 @@ published: 2025-08-22
 description: BGP基础回顾
 tags: [计算机网络]
 category: 技术笔记
-draft: false
+draft: true
 ---
 
 部分运营商项目在接对接时会用到BGP，正好做一次复习，IE的东西忘了好多-=
