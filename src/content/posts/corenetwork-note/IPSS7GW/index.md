@@ -39,12 +39,47 @@ draft: false
 ## 3.2 M3UA作用和相关术语
 - **适配 SS7 到 IP**：把 MTP3 消息 封装成 M3UA 数据单元，通过 SCTP 传输。
 - **提供信令点路由**：M3UA 使用 路由键（Routing Key） 实现 IP 侧信令路由。对应 SS7 侧的 DPC/OPC（目的/源 信令点码）。
-:::tip
-`点码（Point Code）`：简单理解为SS7中的IP地址，长度有14位（383）和24位（888）两种。
-:::
-- **提供设备之间的信令关系建立**：M3UA负责建立ASP（Application Server Process）和SG（Signaling Gateway 这里就是IPSS7GW）之间的关系。基于SCTP。
+- **提供设备之间的信令关系建立**：M3UA负责建立`ASP（Application Server Process）`和`SG`（Signaling Gateway 这里就是IPSS7GW）之间的关系。基于SCTP。
 
-## 3.3 对接运营商M3UA配置
+## 3.3 M3UA 网络标识体系
+1. **点码**：SS7/M3UA网络中唯一标识一个信令节点的地址，类似于IP网络中的IP地址。
+
+| 属性 | 说明 |
+|------|------|
+| **DPC** | Destination Point Code，目的信令点编码，标识消息的目的节点 |
+| **OPC** | Originating Point Code，源信令点编码，标识消息的发送节点 |
+| **编码格式** | ITU-T 14位（国际）/ ANSI 24位（北美）/ 中国24位 / 日本16位 |
+
+----
+
+2. 路由键（Routing Key，RK）
+
+| 路由键参数 | 说明 | 匹配场景 |
+|-----------|------|----------|
+| **DPC** | 目的信令点编码 | 按目的节点路由（最常用） |
+| **SIO** | Service Information Octet，业务信息八位组 | 按业务类型路由（如SCCP、ISUP、MAP） |
+| **SI** | Service Indicator，业务指示子（SIO低4位） | 区分MTP3用户（SCCP=0x03, ISUP=0x05, TUP=0x04） |
+| **SSN** | Subsystem Number，子系统号 | 按具体应用路由（如HLR=6, VLR=7, MSC=8, SMS=9） |
+| **OPC** | 源信令点编码 | 按源节点过滤路由 |
+
+----
+
+3. 业务信息八位组（SIO）
+
+```
+  7    6    5    4    3    2    1    0
++----+----+----+----+----+----+----+----+
+|        网络指示语(NI)       | 优先级    |
++----+----+----+----+----+----+----+----+
+|      备用      |      业务指示子(SI)    |
++----+----+----+----+----+----+----+----+
+```
+
+- NI (Network Indicator): 00=国际, 01=国际备用, 10=国内, 11=国内备用
+- SI (Service Indicator): 标识上层用户协议
+
+
+## 3.4 对接运营商M3UA配置
 涉及产品，这里简单用文字描述下流程。<br>
 
 
