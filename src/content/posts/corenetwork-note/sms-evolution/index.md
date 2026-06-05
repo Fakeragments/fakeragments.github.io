@@ -2,16 +2,15 @@
 title: SMS演进与架构 — 从2/3G到5G的协议变迁
 description: 基于GSMA NG.111 v3.0文档，以架构图为线索梳理SMS协议演进、归属架构、漫游方案、信令流程及全球部署趋势
 published: 2026-05-10
-tags: [核心网, SMS, MAP, Diameter, SS7, 5GC, IMS]
+tags: [核心网]
 category: 技术笔记
 draft: false
 ---
 
 SMS（Short Message Service）从2G时代沿用至今，是移动通信中最基础也最顽强的业务之一。随着网络从2/3G演进到4G、IMS、5G乃至MIoT，SMS的承载协议也在不断变迁——从最初的MAP over SS7，到SGs/SGd Diameter，再到IMS SIP，每一次演进都有其历史背景和技术考量。
 
-本文基于 **GSMA NG.111 SMS Evolution v3.0（2024年6月）** 官方文档，以文档中的架构图为主线，系统梳理SMS承载协议的演进路径、归属架构、漫游方案、端到端信令流程及全球部署趋势。
+基于 **GSMA NG.111 SMS Evolution v3.0（2024年6月）** 官方文档，以文档中的架构图为主线，系统梳理SMS承载协议的演进路径、归属架构、漫游方案、端到端信令流程及全球部署趋势。
 
-> 本文章由助手CoCo生成~
 
 ---
 
@@ -405,15 +404,15 @@ IP-SM-GW是IMS与传统网络之间的桥梁。在IMS域中，LTE用户接入A-S
 | 5 | IP-SM-GW → SMSC | 业务鉴权后，提取SMS-Submit，通过**MAP**转发至SMSC |
 | 6 | SMSC → IP-SM-GW | MAP确认 |
 | 7 | IP-SM-GW → S-CSCF | 通过SIP MESSAGE发送SUBMIT-REPORT |
-| 8-10 | S-CSCF → UE → S-CSCF | SUBMIT-REPORT送达UE，UE返回200 OK确认 |
-| 12-13 | UE通过SIP MESSAGE返回SMS-DELIVER-REPORT |
-| 14-15 | IP-SM-GW确认，200 OK回传至UE |
+| 8-10 | IP-SM-GW → S-CSCF → UE | SUBMIT-REPORT送达UE，UE返回200 OK确认 |
+| 12-13 | UE → S-CSCF | UE通过SIP MESSAGE返回SMS-DELIVER-REPORT，SCSCF触发IFC |
+| 14-15 | S-CSCF → IP-SM-GW → SMSC |IP-SM-GW确认，200 OK回传至UE |
 
 
 ## 6.8 5G SMS over NAS 流程
 
 5G的SMS流程核心参与者：UE ↔ AMF（N1/NAS）↔ SMSF（N20）↔ UDM（N21）↔ 传统SMSC（MAP/Diameter）
-
+![NAS](image-15.png)
 **MO流程**：
 1. UE通过NAS（UL NAS Transport）将SMS提交至AMF
 2. AMF通过N20/NSmsf转发至SMSF
@@ -433,9 +432,8 @@ IP-SM-GW是IMS与传统网络之间的桥梁。在IMS域中，LTE用户接入A-S
 
 ## 7.1 当前全局架构
 
-![当前全局SMS架构](fig-global-arch.png)
-
 当前全局架构呈现多协议并存的局面。漫游和互连场景下：
+![当前全局SMS架构](fig-global-arch.png)
 - **SS7（MAP）**：承载不同用户类型（Legacy、IMS、IoT）的漫游信令
 - **Diameter**：在归属网络逐步部署（SGd优先），但漫游/互连迁移为时尚早
 

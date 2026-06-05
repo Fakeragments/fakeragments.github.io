@@ -2,9 +2,9 @@
 title: BGP基础
 published: 2025-08-22
 description: BGP基础回顾
-tags: [计算机网络]
+tags: [网络协议, 计算机网络]
 category: 技术笔记
-draft: true
+draft: false
 ---
 
 # 1. BGP基本概念
@@ -327,9 +327,4 @@ display tcp status                            # 查看TCP连接状态
 ```
 
 ----
-
-# 11. 简单总结
-
-1. **iBGP全互联是硬伤**，必须用RR或者联邦解决，RR更常用
-2. **路径属性是核心**，理解Origin、AS_Path、Local_Pref、MED、Community这几个最常用的属性，80%的BGP问题都能解决。多条选路原则，常用的就前几条（Weight/LP/AS_Path/Origin/MED）
 

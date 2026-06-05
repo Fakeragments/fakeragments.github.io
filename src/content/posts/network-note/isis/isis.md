@@ -2,7 +2,7 @@
 title: IS-IS基础
 published: 2025-08-01
 description: IS-IS基础回顾
-tags: [计算机网络]
+tags: [网络协议, 计算机网络]
 category: 技术笔记
 draft: false
 ---

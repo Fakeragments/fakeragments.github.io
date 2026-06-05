@@ -2,7 +2,7 @@
 title: OSPF基础
 published: 2024-02-13
 description: OSPF基础回顾
-tags: [计算机网络]
+tags: [网络协议, 计算机网络]
 category: 技术笔记
 draft: false
 ---
