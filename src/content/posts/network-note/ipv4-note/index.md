@@ -1,6 +1,6 @@
 ---
 title: IPv4基础
-published: 2024-02-11
+published: 2025-02-11
 description: IPv4基础回顾
 tags: [网络协议, 计算机网络]
 category: 技术笔记
