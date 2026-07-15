@@ -3,7 +3,7 @@ title: VoWiFi交付笔记
 published: 2025-12-08
 description: VoWiFi以及VoWiFi和VoNR平滑切换交付验证记录
 tags: [核心网]
-category: 技术笔记
+category: [技术笔记]
 draft: false
 ---
 

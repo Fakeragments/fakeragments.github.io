@@ -3,7 +3,7 @@ title: K8S Service
 published: 2025-08-13
 description: K8S Service
 tags: [云计算, K8S]
-category: 技术笔记
+category: [技术笔记]
 draft: false
 ---
 

@@ -3,7 +3,7 @@ title: AS服务器去除语音编码导致终端回复488
 published: 2026-07-14
 description: AS服务器去除语音编码问题记录和解决
 tags: [核心网, IMS]
-category: 案例
+category: [案例]
 draft: false
 ---
 

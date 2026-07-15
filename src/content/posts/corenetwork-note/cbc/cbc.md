@@ -3,7 +3,7 @@ title: 5G CBC网元与小区广播
 description: 5G核心网CBC网元及公共预警系统笔记
 published: 2026-05-21
 tags: [核心网]
-category: 技术笔记
+category: [技术笔记]
 draft: false
 ---
 

@@ -3,7 +3,7 @@ title: 内核模式N6口下行打流，N3口GTP封装速率下降问题
 published: 2026-04-09
 description: N6服务器端使用iperf打流，N3口GTP封装速率下降问题排查和解决
 tags: [Linux, 核心网, 计算机网络]
-category: 案例
+category: [案例]
 draft: false
 ---
 

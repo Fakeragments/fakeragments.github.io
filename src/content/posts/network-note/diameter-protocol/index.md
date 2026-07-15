@@ -3,7 +3,7 @@ title: Diameter协议
 description: 基于华为网络协议报文格式大全，梳理Diameter协议栈结构、报文头格式、AVP编码及TCP/SCTP承载示例
 published: 2026-06-04
 tags: [网络协议, 计算机网络]
-category: 技术笔记
+category: [技术笔记]
 draft: false
 ---
 

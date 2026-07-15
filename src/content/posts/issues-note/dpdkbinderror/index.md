@@ -3,7 +3,7 @@ title: 虚拟机网卡直通绑定DPDK失败问题
 published: 2026-05-22
 description: 解决虚拟机网卡直通绑定DPDK失败问题
 tags: [计算机网络, Linux, DPDK]
-category: 案例
+category: [案例]
 draft: false
 ---
 

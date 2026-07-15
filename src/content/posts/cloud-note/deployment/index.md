@@ -3,7 +3,7 @@ title: K8S deployment
 published: 2025-08-11
 description: K8S deployment 学习
 tags: [云计算, K8S]
-category: 技术笔记
+category: [技术笔记]
 draft: false
 ---
 
