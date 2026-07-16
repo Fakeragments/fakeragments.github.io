@@ -2,7 +2,7 @@
 title: WSL 中 pnpm install 在 Windows NTFS 上的符号链接问题
 published: 2026-07-15
 description: 在 WSL 环境通过 pnpm 安装 node_modules 后，Windows 原生 Node.js 找不到模块的排查与解决
-tags: [WSL, pnpm, Node.js, Windows, 开发环境]
+tags: [其他]
 category: [技术笔记]
 draft: false
 ---

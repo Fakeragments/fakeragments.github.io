@@ -3,7 +3,7 @@ title: IPSS7GW简述及其相关协议
 published: 2026-03-12
 description: M3UA协议 SCCP协议 和 部署IPSS7GW对接现网记录
 tags: [核心网]
-category: [技术笔记]
+category: [技术笔记,核心网]
 draft: false
 ---
 

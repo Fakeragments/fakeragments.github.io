@@ -3,7 +3,7 @@ title: Docker基础
 published: 2025-08-08
 description: Docker学习记录
 tags: [Docker, 云计算]
-category: [技术笔记]
+category: [技术笔记, 云计算]
 draft: false
 ---
 

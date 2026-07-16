@@ -2,7 +2,7 @@
 title: FTP传输丢包问题
 published: 2026-03-31
 description: 核心网UE使用DN的FTP服务传输丢包问题记录和解决
-tags: [核心网, Linux, 计算机网络]
+tags: [核心网, Linux]
 category: [案例]
 draft: false
 ---
