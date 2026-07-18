@@ -29,7 +29,7 @@
     }
 
     a:not(.no-styling) {
-        @apply relative bg-none link font-medium text-[var(--primary)]
+        @apply relative bg-none font-medium text-[var(--primary)]
         underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
@@ -70,32 +70,63 @@
 
     .copy-btn {
         all: initial;
-        @apply btn-regular-dark opacity-0 shadow-lg shadow-black/50 absolute active:scale-90 h-8 w-8 top-3 right-3 text-sm rounded-lg transition-all ease-in-out z-20 cursor-pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: oklch(0.45 0.01 var(--hue));
+        opacity: 0;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        position: absolute;
+        transform: scale(0.9);
+        height: 2rem;
+        width: 2rem;
+        top: 0.75rem;
+        right: 0.75rem;
+        font-size: 0.875rem;
+        border-radius: 0.5rem;
+        transition: all ease-in-out;
+        z-index: 20;
+        cursor: pointer;
     }
     .frame:hover .copy-btn {
         opacity: 1;
     }
 
     .copy-btn-icon {
-        @apply absolute top-1/2 left-1/2 transition -translate-x-1/2 -translate-y-1/2 w-4 h-4 fill-white pointer-events-none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transition: all;
+        transform: translate(-50%, -50%);
+        width: 1rem;
+        height: 1rem;
+        fill: white;
+        pointer-events: none;
     }
     .copy-btn .copy-icon {
-        @apply opacity-100 fill-white dark:fill-white/75;
+        opacity: 1;
+        fill: white;
+    }
+    .dark .copy-btn .copy-icon {
+        fill: rgba(255, 255, 255, 0.75);
     }
     .copy-btn.success .copy-icon {
-        @apply opacity-0 fill-[var(--deep-text)]
+        opacity: 0;
+        fill: var(--deep-text);
     }
     .copy-btn .success-icon {
-        @apply opacity-0 fill-white;
+        opacity: 0;
+        fill: white;
     }
     .copy-btn.success .success-icon {
-        @apply opacity-100
+        opacity: 1;
     }
 
     .expressive-code {
-        @apply my-4;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
         ::selection {
-            @apply bg-[var(--codeblock-selection)];
+            background-color: var(--codeblock-selection);
         }
     }
 

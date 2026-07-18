@@ -3,7 +3,7 @@ title: BGP基础
 published: 2025-08-22
 description: BGP基础回顾
 tags: [网络协议, 计算机网络]
-category: 技术笔记
+category: [技术笔记, 数通]
 draft: false
 ---
 

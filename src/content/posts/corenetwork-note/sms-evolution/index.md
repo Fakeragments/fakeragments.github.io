@@ -3,7 +3,7 @@ title: SMS演进与架构 — 从2/3G到5G的协议变迁
 description: 基于GSMA NG.111 v3.0文档，以架构图为线索梳理SMS协议演进、归属架构、漫游方案、信令流程及全球部署趋势
 published: 2026-05-10
 tags: [核心网]
-category: 技术笔记
+category: [技术笔记,核心网]
 draft: false
 ---
 

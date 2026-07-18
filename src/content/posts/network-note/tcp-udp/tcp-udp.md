@@ -3,7 +3,7 @@ title: TCP 与 UDP 协议简述
 published: 2025-05-27
 description: TCP UDP协议简述
 tags: [网络协议, 计算机网络]
-category: 技术笔记
+category: [技术笔记, 数通]
 draft: false
 ---
 

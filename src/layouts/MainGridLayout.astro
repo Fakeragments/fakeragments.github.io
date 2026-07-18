@@ -3,6 +3,7 @@ import BackToTop from "@components/control/BackToTop.astro";
 import Footer from "@components/Footer.astro";
 import Navbar from "@components/Navbar.astro";
 import SideBar from "@components/widget/SideBar.astro";
+import TOC from "@components/widget/TOC.astro";
 import type { MarkdownHeading } from "astro";
 import { Icon } from "astro-icon/components";
 import ImageWrapper from "../components/misc/ImageWrapper.astro";
@@ -45,7 +46,7 @@ const mainPanelTop = siteConfig.banner.enable
 <!-- Navbar -->
 <slot slot="head" name="head"></slot>
 <div id="top-row" class="z-50 pointer-events-none relative transition-all duration-700 max-w-[var(--page-width)] px-0 md:px-4 mx-auto" class:list={[""]}>
-    <div id="navbar-wrapper" class="pointer-events-auto sticky top-0 transition-all">
+    <div id="navbar-wrapper" class="pointer-events-auto sticky top-[0.35rem] transition-all">
         <Navbar></Navbar>
     </div>
 </div>
@@ -79,7 +80,7 @@ const mainPanelTop = siteConfig.banner.enable
             </a>}
 
 
-            <SideBar class="mb-4 row-start-2 row-end-3 col-span-2 lg:row-start-1 lg:row-end-2 lg:col-span-1 lg:max-w-[17.5rem] onload-animation" headings={headings}></SideBar>
+            <SideBar class="mb-4 row-start-2 row-end-3 col-span-2 lg:row-start-1 lg:row-end-2 lg:col-span-1 lg:max-w-[17.5rem] onload-animation"></SideBar>
 
             <main id="swup-container" class="transition-swup-fade col-span-2 lg:col-span-1 overflow-hidden">
                 <div id="content-wrapper" class="onload-animation">
@@ -96,6 +97,18 @@ const mainPanelTop = siteConfig.banner.enable
                 <Footer></Footer>
             </div>
         </div>
+
+        <!-- TOC: floating on the right side using --toc-width, outside the grid, only on desktop -->
+        {siteConfig.toc.enable && headings.length > 0 &&
+        <div id="toc-wrapper" class="hidden xl:block toc-hide" style="position: fixed; top: 50vh; transform: translateY(-50%); right: 1rem; width: var(--toc-width, 14rem); max-width: 16rem; max-height: 75vh; z-index: 40;">
+            <div id="toc-inner-wrapper" class="w-full max-h-[65vh] overflow-y-scroll overflow-x-hidden hide-scrollbar" style="position: relative; background: var(--card-bg); border-radius: var(--radius-large); box-shadow: 0 0 0 1px var(--line-divider);">
+                <div id="toc" class="w-full">
+                    <div class="h-2 w-full"></div>
+                    <TOC headings={headings}></TOC>
+                    <div class="h-2 w-full"></div>
+                </div>
+            </div>
+        </div>}
 
         <BackToTop></BackToTop>
     </div>

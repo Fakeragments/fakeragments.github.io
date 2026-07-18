@@ -3,7 +3,7 @@ title: K8S安装
 published: 2025-08-09
 description: K8S安装学习记录
 tags: [云计算, K8S]
-category: 技术笔记
+category: [技术笔记, 云计算]
 draft: false
 ---
 

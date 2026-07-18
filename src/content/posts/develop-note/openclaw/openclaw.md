@@ -2,8 +2,8 @@
 title: Openclaw部署记录
 published: 2026-03-07
 description: Openclaw简单部署
-tags: [Ai, 云]
-category: 技术笔记
+tags: [其他]
+category: [技术笔记]
 draft: false
 ---
 

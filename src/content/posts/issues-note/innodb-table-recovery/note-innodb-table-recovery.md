@@ -3,7 +3,7 @@ title: InnoDB 表缺失恢复 — MariaDB 实例重建全流程
 published: 2026-06-03
 description: 暴力下电导致 MariaDB 实例损坏、表缺失后的完整恢复流程——从导出健康库到重建实例
 tags: [数据库]
-category: 案例
+category: [案例]
 draft: false
 ---
 

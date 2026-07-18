@@ -3,7 +3,7 @@ title: 深入浅出4G核心网阅读笔记
 published: 2025-02-12
 description: 深入浅出4G核心网阅读笔记
 tags: [核心网]
-category: 阅读笔记
+category: [阅读笔记]
 draft: false
 ---
 
