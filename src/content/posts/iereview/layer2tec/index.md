@@ -355,4 +355,42 @@ MSTP 使用多生成树桥协议数据单元 MST BPDU（Multiple Spanning Tree B
 
  **Region Name + Revision Level + Configuration Digest**。三者完全一致才在同一域，才会处理MSTI信息。
 
+----
+
+
 ## MSTP状态和角色
+> MSTP的端口状态机和RSTP完全相同，均从STP的5状态简化为3状态，即discarding、learning、forwarding。
+
+MSTP 在 RSTP 的基础上**新增了 2 种端口**，MSTP 的端口角色`共有 7 种`：根端口、指定端口、Alternate端口、Backup 端口、边缘端口、**Master 端口**和**域边缘端口**。根端口、指定端口、Alternate 端口、Backup 端口和边缘端口的作用同 RSTP 协议中定义。
+
+| 角色 | RSTP | MSTP | 说明 |
+|------|:----:|:----:|------|
+| **Root Port (RP)** | ✅ | ✅ | 非根桥上离根最近的端口 |
+| **Designated Port (DP)** | ✅ | ✅ | 网段上负责转发数据的端口 |
+| **Alternate Port (AP)** | ✅ | ✅ | 根端口的备份，阻塞状态 |
+| **Backup Port (BP)** | ✅ | ✅ | 指定端口的备份，阻塞状态 |
+| **Edge Port** | ✅ | ✅ | 连接终端设备，不参与计算 |
+| **Master Port** | ❌ | ✅ | Master 端口是 MST 域和总根相连的所有路径中最短路径上的端口，它是交换设备上`连接 MST 域到总根的端口`，如图6 S1所示 |
+| **Region Edge Port** | ❌ | ✅ | 域边缘端口是指位于 MST 域的边缘并连接其它 MST 域或 SST 的端口，如图6 S4所示 |
+
+![mstp](image-14.png)
+
+----
+
+## MSTP拓扑计算
+生成树收敛计算的方式都差不多，就是比较。
+
+MSTP和RSTP的计算方式是一样的，都使用配置BPDU来计算。
+
+> **各个域**之间通过计算生成 **CST(Common Spanning Tree)**， 域内则通过计算生成多棵生成树，每棵生成树都被称为是一个多生成树实例。其中**实例 0 被称为 IST（Internal Spanning Tree）**，其他的多生成树实例为 MSTI。
+
+MSTI 和 CIST 都是根据**优先级向量**来计算的：
+
+> 参与 **CIST** 计算的优先级向量依次为：{ 根交换设备 ID，外部路径开销，域根 ID，内部路径开销，指定交换设备 ID，指定端口 ID，接收端口 ID }
+CIST计算，简单来说就是多个MST域选出个最优的作为CIST根，然后将多个MST域视作单台交换设备计算，在域间生成CST，再和域内的IST合并就是CIST。
+
+
+> 参与 **MSTI** 计算的优先级向量依次为：{ 域根 ID，内部路径开销，指定交换设备 ID，指定端口 ID，接收端口 ID }
+在MST域内，不同实例相互独立，计算方式和普通STP计算过程一致。
+
+这些向量**依次比较**，如果端口接收到的 BPDU 内包含的配置消息优于端口上保存的配置消息，则端口上原来保存的配置消息被新收到的配置消息替代。端口同时更新交换设备保存的全局配置消息。
